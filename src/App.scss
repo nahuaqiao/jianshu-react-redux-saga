@@ -1,0 +1,11 @@
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+.App {
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.LoaderContainer {
+    background: url("https://cdn.hackernoon.com/images/0*8Bo55n0866cTSDZK.gif") no-repeat center;
+}

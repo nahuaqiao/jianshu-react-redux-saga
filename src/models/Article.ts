@@ -7,5 +7,5 @@ export interface Article {
   cover: string
   created: number
   user: string
-  comment: Comment[]
+  comments: Comment[]
 }

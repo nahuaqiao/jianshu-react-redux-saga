@@ -1,5 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { RootState } from '../../app/store'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface TokenState {
   access: string
@@ -7,23 +6,24 @@ interface TokenState {
 }
 
 const initialState: TokenState = {
-  access: 'asdf',
-  refresh: 'asdf',
+  access: '',
+  refresh: '',
 }
 
 export const tokenSlice = createSlice({
-  name: 'token',
+  name: 'tokenState',
   initialState,
   reducers: {
-    verify: (state) => {},
+    updateAccessToken: (state: TokenState, action: PayloadAction<{ access: string }>) => {
+      state.access = action.payload.access
+    },
+    updateRefreshToken: (state: TokenState, action: PayloadAction<{ refresh: string }>) => {
+      state.refresh = action.payload.refresh
+    }
   },
 })
 
-// action
-export const { verify } = tokenSlice.actions
+/** export action */
+export const { updateAccessToken, updateRefreshToken } = tokenSlice.actions
 
-// select
-export const selectAccess = (state: RootState) => state.token.access
-
-// reducer
 export default tokenSlice.reducer

@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from '../../app/store'
 
-import { Article } from '../../model/Article'
+import { Article } from '../../models/Article'
 
-interface ArticleState {
+export interface ArticleState {
   articles: Article[]
 }
 
@@ -12,14 +11,19 @@ const initialState: ArticleState = {
 }
 
 export const articleSlice = createSlice({
-  name: 'article',
+  name: 'articleState',
   initialState,
   reducers: {
-    postArticle: (state, action: PayloadAction<number>) => {},
+    initialArticles: (state: ArticleState, action: PayloadAction<{ articles: Article[] }>) => {
+      state.articles = action.payload.articles
+    },
+
+    addArticle: (state: ArticleState, action: PayloadAction<{ article: Article }>) => {
+      state.articles.unshift(action.payload.article)
+    },
   },
 })
 
-export const { postArticle } = articleSlice.actions
+export const { initialArticles, addArticle } = articleSlice.actions
 
-export const selectArticles = (state: RootState) => state.article.articles
 export default articleSlice.reducer
