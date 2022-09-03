@@ -14,13 +14,16 @@ export const articleSlice = createSlice({
   name: 'articleState',
   initialState,
   reducers: {
-    initialArticles: (state: ArticleState, action: PayloadAction<{ articles: Article[] }>) => {
-      state.articles = action.payload.articles
-    },
+    //#region action for saga
+    getArticleListForSaga: (state: ArticleState) => { },
+    addArticleForSaga: (state: ArticleState, action: PayloadAction<{ formData: any }>) => { },
+    editArticleForSaga: (state: ArticleState, action: PayloadAction<{ articleId: number; formData: any }>) => { },
+    deleteArticleForSaga: (state: ArticleState, action: PayloadAction<{ articleId: number }>) => { },
+    //#endregion
 
-    addArticle: (state: ArticleState, action: PayloadAction<{ article: Article }>) => {
-      state.articles.unshift(action.payload.article)
-    },
+    //#region action from saga to change state
+    initialArticlesForRedux: (state, action: PayloadAction<{ articles: Article[] }>) => { }
+    //#endregion
   },
 })
 

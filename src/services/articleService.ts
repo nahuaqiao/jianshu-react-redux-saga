@@ -26,7 +26,7 @@ export const getArticleByIdService = async (articleId: number) => {
  * 
  * @param formData article form data
  * @returns The article object that was created
- */
+*/
 export const postArticleService = async (formData: FormData) => {
 
     try {

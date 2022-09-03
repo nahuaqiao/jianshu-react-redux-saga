@@ -2,20 +2,24 @@ import { Outlet } from 'react-router-dom'
 
 import Container from 'react-bootstrap/Container'
 
+import { RootState } from '../../../app/store'
 import ArticleTopNavBar from '../../../components/ArticleTopNavBar'
 
 interface Props {
   children?: React.ReactNode
 }
 
-const ArticleWrapper = (props: Props) => {
+const ArticleWrapperUI = ({ show }: Props) => {
   return (
     <Container>
+      <Modal show={show} fullscreen={true}>
+        <Modal.Body className='LoaderContainer'></Modal.Body>
+      </Modal>
       <ArticleTopNavBar />
-      {props?.children}
       <Outlet />
+      {props?.children}
     </Container>
   )
 }
 
-export default ArticleWrapper
+export default connect((state: RootState) => ({show}))(ArticleWrapperUI)
