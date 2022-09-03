@@ -14,7 +14,7 @@ export const commentSlice = createSlice({
   name: 'commentState',
   initialState,
   reducers: {
-    postComment: (state, action: PayloadAction<number>) => { },
+    postComment: (state: CommentState, action: PayloadAction<number>) => { },
   },
 })
 

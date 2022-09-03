@@ -1,7 +1,12 @@
+import { connect } from 'react-redux'
+
 interface Props {}
 
-const ArticleDetail = (props: Props) => {
+const ArticleDetailUI = (props: Props) => {
   return null
 }
 
-export default ArticleDetail
+const mapState = () => ({})
+const mapDispatch = () => ({})
+
+export default connect(mapState, mapDispatch)(ArticleDetailUI)

@@ -3,3 +3,9 @@ export interface Comment {
   content: string
   created: number
 }
+
+export const fakeComment = {
+  id: 12138,
+  content: 'fake comment',
+  created: Date.now()
+}

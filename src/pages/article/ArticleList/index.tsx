@@ -12,8 +12,7 @@ export const ArticleListItem = ({ article }: { article: Article }) => {
       <ListGroup.Item
         style={{ cursor: 'pointer' }}
         as='li'
-        className='d-flex justify-content-between align-items-start'
-      >
+        className='d-flex justify-content-between align-items-start'>
         <div className='ms-2 me-auto'>
           <div className='fw-bold'>{article.title}</div>
           <div>{article.content}</div>
@@ -43,19 +42,6 @@ export const ArticleListUI = ({ articles }: Props) => {
     </main>
   )
 }
-
-const fakeArticleList: Article[] = [
-  {
-    id: 1,
-    title: 'this is title',
-    content: 'some content',
-    cover:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnWwWcHpya-SzuqZL8A0EDfnQPpo0Z3BQCCw&usqp=CAU',
-    created: 123123213,
-    user: '',
-    comments: [],
-  },
-]
 
 const mapState = (state: RootState) => ({
   articles: state.articleState.articles,

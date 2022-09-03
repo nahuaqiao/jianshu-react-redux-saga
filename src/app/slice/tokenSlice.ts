@@ -23,7 +23,6 @@ export const tokenSlice = createSlice({
   },
 })
 
-/** export action */
 export const { updateAccessToken, updateRefreshToken } = tokenSlice.actions
 
 export default tokenSlice.reducer

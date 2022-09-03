@@ -8,7 +8,7 @@ import tokenReducer from './slice/tokenSlice'
 import articleReducer from './slice/articleSlice'
 import commentReducer from './slice/commentSlice'
 import configReducer from './slice/configSlice'
-
+import alertReducer from './slice/alertSlice'
 import testDataReducer from './slice/testDataSlice'
 
 import {
@@ -27,14 +27,16 @@ import storage from 'redux-persist/lib/storage'
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
-//#region store persist
+// Store persist in localStorage.
 const persistConfig = {
   key: 'root',
   version: 1,
   storage,
 }
 
+// Combine all reducers into root reducer for persist.
 const rootReducer = combineReducers({
+  alertState: alertReducer,
   articleState: articleReducer,
   commentState: commentReducer,
   tokenState: tokenReducer,
@@ -44,12 +46,15 @@ const rootReducer = combineReducers({
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
-//#endregion
 
+// Create saga middleware.
 const SagaMiddleware = createSagaMiddleware()
 
 export const store = configureStore({
+  // Initial root reducer.
   reducer: persistedReducer,
+
+  // Add saga middleware to the middleware list.
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
@@ -57,8 +62,10 @@ export const store = configureStore({
   }).prepend(SagaMiddleware)
 })
 
+// Start saga.
 SagaMiddleware.run(rootSaga)
 
+// Export store and persistor store.
 const myStore = {
   store,
   persistor: persistStore(store)

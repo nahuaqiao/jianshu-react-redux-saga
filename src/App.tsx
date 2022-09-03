@@ -15,13 +15,11 @@ import NotFound from './pages/NotFound'
 import Register from './pages/auth/Register'
 import TestWrapper from './pages/TestWrapper'
 import AuthWrapper from './pages/auth/AuthWrapper'
-import ArticleAdd from './pages/article/ArticleAdd'
+import ArticleAdd from './pages/article/ArticlePost'
 import ArticleEdit from './pages/article/ArticleEdit'
 import ArticleList from './pages/article/ArticleList'
 import ArticleDetail from './pages/article/ArticleDetail'
 import ArticleWrapper from './pages/article/ArticleWrapper'
-
-
 
 interface Props {
   show: boolean
