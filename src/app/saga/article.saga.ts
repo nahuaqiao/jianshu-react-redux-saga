@@ -11,13 +11,14 @@ function delay(delayTimestamp: number) {
   })
 }
 
+///#region task
 
+///#endregion
 
-export function* initialArticleTaskList() {
+///#region task list
+export function* initialArticle() {
   yield call(delay, 2000)
   const articles: Article[] = yield call(getArticleListService)
   yield put(initialArticles({ articles }))
 }
-
-// task
-// task list 
+///#endregion

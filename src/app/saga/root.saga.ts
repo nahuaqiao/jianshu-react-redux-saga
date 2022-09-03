@@ -1,5 +1,5 @@
 import { all, fork } from "redux-saga/effects"
-import { initialStateAsync } from "./configSaga"
+import { initialStateAsync } from "./initial.saga"
 
 export default function* rootSaga() {
     yield all([
