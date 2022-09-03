@@ -1,7 +1,7 @@
-import { call, put } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 import { Article } from "../../models/Article";
 import { getArticleListService } from "../../services/articleService";
-import { initialArticles } from "../slice/articleSlice";
+import { initialArticleListForSaga, initialArticleListForRedux } from "../slice/articleSlice";
 
 function delay(delayTimestamp: number) {
   return new Promise<void>((resolve) => {
@@ -11,14 +11,17 @@ function delay(delayTimestamp: number) {
   })
 }
 
-///#region task
-
-///#endregion
-
-///#region task list
-export function* initialArticle() {
-  yield call(delay, 2000)
+export function* fetchArticleListAsync() {
+    yield call(delay, 2000)
   const articles: Article[] = yield call(getArticleListService)
-  yield put(initialArticles({ articles }))
+  yield put(initialArticleListForRedux({articles}))
 }
-///#endregion
+export function* catchInitArticleList() {
+    yield takeEvery(initialArticleListForSaga().type, fetchArticleListAsync)
+}
+
+function* rootArticleSaga () {
+    yield catchInitArticleList()
+}
+
+export default rootArticleSaga
