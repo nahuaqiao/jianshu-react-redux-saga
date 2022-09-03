@@ -6,18 +6,17 @@ import { RootState } from '../../../app/store'
 import ArticleTopNavBar from '../../../components/ArticleTopNavBar'
 
 interface Props {
-  children?: React.ReactNode
+    show: boolean
+    children?: React.ReactNode
 }
 
-const ArticleWrapperUI = ({ show }: Props) => {
+const ArticleWrapperUI = ({ show, children }: Props) => {
   return (
     <Container>
-      <Modal show={show} fullscreen={true}>
-        <Modal.Body className='LoaderContainer'></Modal.Body>
-      </Modal>
+      
       <ArticleTopNavBar />
       <Outlet />
-      {props?.children}
+      {children}
     </Container>
   )
 }

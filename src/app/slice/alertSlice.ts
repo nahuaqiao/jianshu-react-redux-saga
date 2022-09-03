@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type Alert = {
     header: string
@@ -24,7 +24,7 @@ const alertSlice = createSlice({
     reducers: {
         //#region action from saga to change state
         displayAlertForRedux: (state: AlertState, action: PayloadAction<{ content: Alert }>) => {
-            state.content = content
+            state.content = action.payload.content
             state.display = true
         },
 
@@ -34,3 +34,7 @@ const alertSlice = createSlice({
         //#endregion
     }
 })
+
+export const { displayAlertForRedux, hiddenAlertForRedux} = alertSlice.actions
+
+export default alertSlice.reducer
