@@ -1,7 +1,8 @@
+import React from 'react'
 import Badge from 'react-bootstrap/Badge'
 import ListGroup from 'react-bootstrap/ListGroup'
-import { connect } from 'react-redux'
-import { RootState } from '../../../app/store'
+import { useAppSelector } from '../../../app/hooks'
+import { selectArticleList } from '../../../app/slice/articleSlice'
 
 import RouterLink from '../../../components/common/RouterLink'
 import { Article } from '../../../models/Article'
@@ -12,7 +13,8 @@ export const ArticleListItem = ({ article }: { article: Article }) => {
       <ListGroup.Item
         style={{ cursor: 'pointer' }}
         as='li'
-        className='d-flex justify-content-between align-items-start'>
+        className='d-flex justify-content-between align-items-start'
+      >
         <div className='ms-2 me-auto'>
           <div className='fw-bold'>{article.title}</div>
           <div>{article.content}</div>
@@ -27,11 +29,9 @@ export const ArticleListItem = ({ article }: { article: Article }) => {
   )
 }
 
-interface Props {
-  articles: Article[]
-}
+export const ArticleList = () => {
+  const articles = useAppSelector(selectArticleList)
 
-export const ArticleListUI = ({ articles }: Props) => {
   return (
     <main>
       <ListGroup as='ul'>
@@ -42,16 +42,5 @@ export const ArticleListUI = ({ articles }: Props) => {
     </main>
   )
 }
-
-const mapState = (state: RootState) => ({
-  articles: state.articleState.articles,
-})
-
-// const mapDispatch = (dispatch: AppDispatch) => {}
-// const ArticleList = () => {
-//   return <ArticleListUI articles={fakeArticleList} />
-// }
-
-const ArticleList = connect(mapState /* mapDispatch */)(ArticleListUI)
 
 export default ArticleList

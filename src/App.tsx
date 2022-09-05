@@ -20,6 +20,7 @@ import ArticleEdit from './pages/article/ArticleEdit'
 import ArticleList from './pages/article/ArticleList'
 import ArticleDetail from './pages/article/ArticleDetail'
 import ArticleWrapper from './pages/article/ArticleWrapper'
+import TipModal from './components/common/TipModal'
 
 interface Props {
   show: boolean
@@ -34,6 +35,7 @@ const AppUI = () => {
 
   return (
     <div className='App'>
+      <TipModal />
       <Router>
         <Routes>
           {/* // ========================= root ========================= // */}

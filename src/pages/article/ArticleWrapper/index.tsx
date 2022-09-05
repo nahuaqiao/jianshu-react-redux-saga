@@ -1,26 +1,28 @@
+// React
+import React from 'react'
 import { Outlet } from 'react-router-dom'
 
+// UI
 import Container from 'react-bootstrap/Container'
 
-import { RootState } from '../../../app/store'
+// Custom
+import { initialArticleListForSaga } from '../../../app/slice/articleSlice'
 import ArticleTopNavBar from '../../../components/ArticleTopNavBar'
-import { connect } from 'react-redux'
+import { useAppDispatch } from '../../../app/hooks'
 
-interface Props {
-  show: boolean
-  children?: React.ReactNode
-}
+const ArticleWrapper = () => {
+  const dispatch = useAppDispatch()
 
-const ArticleWrapperUI = ({ show, children }: Props) => {
+  React.useEffect(() => {
+    dispatch(initialArticleListForSaga())
+  }, [dispatch])
+
   return (
     <Container>
       <ArticleTopNavBar />
       <Outlet />
-      {children}
     </Container>
   )
 }
 
-export default connect((state: RootState) => ({
-  show: !state.configState.initialStateIsReady,
-}))(ArticleWrapperUI)
+export default ArticleWrapper

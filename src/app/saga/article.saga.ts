@@ -2,10 +2,10 @@ import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 
 import { Article } from '../../models/Article'
 import { getArticleListService, postArticleService } from '../../services/articleService'
+import { delay } from '../../utils/commonUtils'
 import alertSlice, { displayAlertForRedux } from '../slice/alertSlice'
 import {
   initialArticleListForSaga,
-  postArticleForSaga,
   editArticleForSaga,
   deleteArticleForSaga,
 
@@ -13,25 +13,29 @@ import {
   appendArticleForRedux,
   replaceArticleByIdForRedux,
   removeArticleByIdForRedux,
+  postArticleForSaga,
 } from '../slice/articleSlice'
 
 function* initialArticleListTask() {
-  const articles: Article[] = yield getArticleListService()
-  put(initialArticlesForRedux({ articles }))
+  yield delay(2000)
+  const articles: Article[] = yield call(getArticleListService)
+  yield put(initialArticlesForRedux({ articles }))
 }
 
-function* postArticleTask(formData: any) {
+function* postArticleTask({ type, payload: { formData } }: { type: string; payload: { formData: FormData } }) {
+  console.log('payload', formData)
   try {
-    const newArticle: Article = yield postArticleService(formData)
-    put(appendArticleForRedux({ newArticle }))
-    put(displayAlertForRedux({
+    const newArticle: Article = yield call(postArticleService, formData)
+    yield put(appendArticleForRedux({ newArticle }))
+    yield put(displayAlertForRedux({
       content: {
         header: 'tips',
         detail: 'Post article succeed~'
       }
     }))
   } catch (error: any) {
-    put(displayAlertForRedux({
+    console.log('@37')
+    yield put(displayAlertForRedux({
       content: {
         header: 'error',
         detail: error.message
@@ -42,8 +46,8 @@ function* postArticleTask(formData: any) {
 
 //#region: Catch actions and call Corresponding async-function
 function* rootArticleSaga() {
-  yield takeLatest(postArticleForSaga.type, postArticleTask)
   yield takeLatest(initialArticleListForSaga.type, initialArticleListTask)
+  yield takeLatest(postArticleForSaga.type, postArticleTask)
 }
 //#endregion
 

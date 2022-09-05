@@ -1,4 +1,4 @@
-export const timestampToFormatDateString = (timestamp: string) => {
+export const timestampToFormatDateString = (timestamp: number) => {
     return new Intl.DateTimeFormat('en-US', {
         year: 'numeric',
         month: '2-digit',
@@ -6,5 +6,13 @@ export const timestampToFormatDateString = (timestamp: string) => {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
-    }).format(parseInt(timestamp) * 1000)
+    }).format(timestamp * 1000)
+}
+
+export const delay = (ms: number) => {
+    return new Promise<void>((solve) => {
+        setTimeout(() => {
+            solve()
+        }, ms)
+    })
 }

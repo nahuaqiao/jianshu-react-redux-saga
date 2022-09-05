@@ -1,21 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from '../store'
 
 export type Alert = {
-    header: string
+    title: string
     detail: string
 }
 
 export interface AlertState {
     display: boolean
     content: Alert
+    onHide: () => void
 }
 
 const initialState: AlertState = {
     display: false,
     content: {
-        header: '',
+        title: '',
         detail: ''
-    }
+    },
+    onHide: () => { }
 }
 
 const alertSlice = createSlice({
@@ -30,11 +33,42 @@ const alertSlice = createSlice({
 
         hiddenAlertForRedux: (state: AlertState) => {
             state.display = false
+        },
+        resetAlertOnHide: (state: AlertState) => {
+            state.onHide = () => { }
         }
         //#endregion
     }
 })
 
-export const { displayAlertForRedux, hiddenAlertForRedux} = alertSlice.actions
+// Export action creators.
+export const { displayAlertForRedux, hiddenAlertForRedux, resetAlertOnHide } = alertSlice.actions
 
+// Export selectors.
+export const selectAlertDisplay = (state: RootState) => state.alertState.display
+export const selectAlertContent = (state: RootState) => state.alertState.content
+export const selectAlertOnHide = (state: RootState) => state.alertState.onHide
+
+// Export reducer.
 export default alertSlice.reducer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

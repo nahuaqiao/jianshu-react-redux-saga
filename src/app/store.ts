@@ -5,7 +5,7 @@ import rootSaga from './saga/root.saga'
 
 import userReducer from './slice/userSlice'
 import tokenReducer from './slice/tokenSlice'
-import articleReducer from './slice/articleSlice'
+import articleReducer, { postArticleForSaga } from './slice/articleSlice'
 import commentReducer from './slice/commentSlice'
 import configReducer from './slice/configSlice'
 import alertReducer from './slice/alertSlice'
@@ -45,6 +45,7 @@ const rootReducer = combineReducers({
   configState: configReducer
 })
 
+// initial persist reducer by persist config.
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 // Create saga middleware.
@@ -57,7 +58,7 @@ export const store = configureStore({
   // Add saga middleware to the middleware list.
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, postArticleForSaga.type],
     },
   }).prepend(SagaMiddleware)
 })

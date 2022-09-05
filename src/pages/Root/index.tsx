@@ -1,6 +1,4 @@
 import RouterLink from '../../components/common/RouterLink'
-import ArticleList from '../article/ArticleList'
-import ArticleWrapper from '../article/ArticleWrapper'
 
 interface Props {}
 

@@ -1,6 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { Article } from '../../models/Article'
+import { RootState } from '../store'
 
 export interface ArticleState {
     articles: Article[]
@@ -14,17 +15,15 @@ export const articleSlice = createSlice({
     name: 'articleState',
     initialState,
     reducers: {
-        //#region action for saga
+        //#region: action for saga
         initialArticleListForSaga: (state: ArticleState) => { },
         postArticleForSaga: (
             state: ArticleState,
-            action: PayloadAction<{ formData: any }>
-        ) => {
-            console.log('@23 post article for saga is called')
-        },
+            action: PayloadAction<{ formData: FormData }>
+        ) => { },
         editArticleForSaga: (
             state: ArticleState,
-            action: PayloadAction<{ articleId: number; formData: any }>
+            action: PayloadAction<{ articleId: number; formData: FormData }>
         ) => { },
         deleteArticleForSaga: (
             state: ArticleState,
@@ -32,7 +31,7 @@ export const articleSlice = createSlice({
         ) => { },
         //#endregion
 
-        //#region action from saga to change state
+        //#region: action from saga to change state
         initialArticlesForRedux: (
             state: ArticleState,
             action: PayloadAction<{ articles: Article[] }>
@@ -67,6 +66,7 @@ export const articleSlice = createSlice({
     },
 })
 
+// Export all action.
 export const {
     initialArticleListForSaga,
     postArticleForSaga,
@@ -79,5 +79,8 @@ export const {
     removeArticleByIdForRedux,
 
 } = articleSlice.actions
+
+export const selectArticleList = (state: RootState) => state.articleState.articles
+export const selectArticleById = (state: RootState, articleId: number) => state.articleState.articles.find((article) => article.id === articleId)
 
 export default articleSlice.reducer
