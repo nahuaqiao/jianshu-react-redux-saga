@@ -33,5 +33,3 @@ const TipModal = () => {
 }
 
 export default TipModal
-
-// *.standalone.powerarena.com, 183.136.194.50
