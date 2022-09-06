@@ -28,7 +28,3 @@ export const loginService = async ({ username, password }: { username: string; p
         throw new Error('Login failed.')
     }
 }
-
-// export const getUserIdFromToken = (token: string): number => {
-//     return JSON.parse(b64_to_utf8(token.split('.')[1])).user_id
-// }

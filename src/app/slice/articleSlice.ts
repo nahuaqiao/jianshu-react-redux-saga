@@ -1,6 +1,7 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { Article } from '../../models/Article'
+import { timestampToFormatDateString } from '../../utils/commonUtils'
 import { RootState } from '../store'
 
 export interface ArticleState {
@@ -81,7 +82,8 @@ export const {
 } = articleSlice.actions
 
 export const selectArticleList = (state: RootState) =>
-    state.articleState.articles
+    (state.articleState.articles.map((article) => ({ ...article, created: timestampToFormatDateString(article.created) })))
+
 export const selectArticleById = (state: RootState, articleId: number) =>
     state.articleState.articles.find((article) => article.id === articleId)
 
