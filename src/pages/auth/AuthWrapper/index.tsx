@@ -1,17 +1,18 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React from "react"
+import { Container } from 'react-bootstrap'
+import { Outlet } from "react-router-dom"
+import AuthTopNavBar from '../../../components/AuthTopNavBar'
 
-interface Props {}
+interface Props { }
 
 const AuthWrapper = (props: Props) => {
   return (
-    <>
-      <header>this is auth wrapper page.</header>
-      <main>
-        <Outlet />
-      </main>
-    </>
-  );
-};
 
-export default AuthWrapper;
+    <Container>
+      <AuthTopNavBar />
+      <Outlet />
+    </Container>
+  )
+}
+
+export default AuthWrapper

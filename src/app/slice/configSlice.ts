@@ -12,14 +12,14 @@ const configSlice = createSlice({
     name: 'configState',
     initialState,
     reducers: {
-        fetchInitialState: () => { },
-        setInitialStateIsReady: (state: ConfigState, action: PayloadAction<{ initialStateIsReady: boolean }>) => {
+        fetchInitialStateForSaga: () => { },
+        setInitialStateIsReadyForRedux: (state: ConfigState, action: PayloadAction<{ initialStateIsReady: boolean }>) => {
             state.initialStateIsReady = action.payload.initialStateIsReady
         },
 
     }
 })
 
-export const { fetchInitialState, setInitialStateIsReady } = configSlice.actions
+export const { fetchInitialStateForSaga, setInitialStateIsReadyForRedux } = configSlice.actions
 
 export default configSlice.reducer

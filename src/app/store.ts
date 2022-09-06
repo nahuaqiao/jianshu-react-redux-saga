@@ -5,21 +5,20 @@ import rootSaga from './saga/root.saga'
 
 import userReducer from './slice/userSlice'
 import tokenReducer from './slice/tokenSlice'
-import articleReducer, { postArticleForSaga } from './slice/articleSlice'
+import articleReducer from './slice/articleSlice'
 import commentReducer from './slice/commentSlice'
 import configReducer from './slice/configSlice'
 import alertReducer from './slice/alertSlice'
-import testDataReducer from './slice/testDataSlice'
 
 import {
   persistStore,
   persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
+  // FLUSH,
+  // REHYDRATE,
+  // PAUSE,
+  // PERSIST,
+  // PURGE,
+  // REGISTER,
 } from 'redux-persist'
 
 import storage from 'redux-persist/lib/storage'
@@ -40,7 +39,6 @@ const rootReducer = combineReducers({
   articleState: articleReducer,
   commentState: commentReducer,
   tokenState: tokenReducer,
-  testDataState: testDataReducer,
   userState: userReducer,
   configState: configReducer
 })
@@ -57,9 +55,10 @@ export const store = configureStore({
 
   // Add saga middleware to the middleware list.
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, postArticleForSaga.type],
-    },
+    serializableCheck: false
+    // serializableCheck: {
+    //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, postArticleForSaga.type],
+    // },
   }).prepend(SagaMiddleware)
 })
 
@@ -67,9 +66,5 @@ export const store = configureStore({
 SagaMiddleware.run(rootSaga)
 
 // Export store and persistor store.
-const myStore = {
-  store,
-  persistor: persistStore(store)
-}
 
-export default myStore
+export const persistor = persistStore(store)

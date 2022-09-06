@@ -1,3 +1,4 @@
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
@@ -19,7 +20,7 @@ import { RootState } from '../../../app/store'
 import RouterLink from '../../../components/common/RouterLink'
 import { useAppDispatch } from '../../../app/hooks'
 import { timestampToFormatDateString } from '../../../utils/commonUtils'
-import React from 'react'
+import { postCommentForSaga } from '../../../app/slice/commentSlice'
 
 export const ArticleCard = ({
   article,
@@ -31,14 +32,13 @@ export const ArticleCard = ({
   return (
     <article>
       <Card style={{ width: '80%', margin: '0 auto' }}>
-        <Card.Img variant='top' src={article.cover} />
+        <div style={{ minHeight: 300 }}><Card.Img variant='top' src={article.cover} /></div>
         <Card.Body>
           <Card.Title>{article.title}</Card.Title>
           <Card.Text>{article.content}</Card.Text>
           <hr />
-          <Card.Text>{`Created by: ${
-            article.user
-          }, when: ${timestampToFormatDateString(article.created)}`}</Card.Text>
+          <Card.Text>{`Created by: ${article.user
+            }, when: ${timestampToFormatDateString(article.created)}`}</Card.Text>
           <ButtonToolbar className='justify-content-between'>
             <ButtonGroup>
               <RouterLink to={`/articles/edit/${article.id}`}>
@@ -56,14 +56,14 @@ export const ArticleCard = ({
           </ButtonToolbar>
         </Card.Body>
       </Card>
-    </article>
+    </article >
   )
 }
 
 export const CommentCreateForm = ({
   handlePostComment,
 }: {
-  handlePostComment: (formData: FormData) => void
+  handlePostComment: (content: string) => void
 }) => {
   const [content, setContent] = React.useState('')
 
@@ -71,9 +71,7 @@ export const CommentCreateForm = ({
     <Form
       onSubmit={(e) => {
         e.preventDefault()
-        const formData = new FormData()
-        formData.append('content', content)
-        handlePostComment(formData)
+        handlePostComment(content)
       }}
     >
       <InputGroup className='mb-3'>
@@ -131,9 +129,8 @@ export const ArticleDetail = () => {
   )
   const handleDeleteArticle = (articleId: number) =>
     dispatch(deleteArticleForSaga({ articleId: articleIdNumber }))
-  const handlePostComment = (formData: FormData) => {
-    // dispatch()
-    console.log('formData', formData)
+  const handlePostComment = (content: string) => {
+    dispatch(postCommentForSaga({ articleId: articleIdNumber, content }))
   }
 
   return (

@@ -1,3 +1,5 @@
+import { RootState } from '../app/store'
+
 export const timestampToFormatDateString = (timestamp: number) => {
     return new Intl.DateTimeFormat('en-US', {
         year: 'numeric',
@@ -16,3 +18,5 @@ export const delay = (ms: number) => {
         }, ms)
     })
 }
+
+export const getReduxState: () => RootState = () => require('../app/store').default.getState()

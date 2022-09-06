@@ -1,17 +1,21 @@
-import React from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { useNavRouter } from '../../../hooks/routerHooks'
+import RouterLink from '../../../components/common/RouterLink'
+import { useAppDispatch } from '../../../app/hooks'
+import { loginForSaga } from '../../../app/slice/userSlice'
+import React from 'react'
 
-export const LoginForm = ({
-  handleLoginFormSubmit,
-}: {
-  handleLoginFormSubmit: () => void
-}) => {
-  const { navToRegister } = useNavRouter()
+export const Login = () => {
+  const dispatch = useAppDispatch()
+
+  const [username, setUsername] = React.useState('')
+  const [password, setPassword] = React.useState('')
 
   return (
-    <Form onSubmit={handleLoginFormSubmit}>
+    <Form onSubmit={(e) => {
+      e.preventDefault()
+      dispatch(loginForSaga({ username, password }))
+    }}>
       <Form.Group className='mb-3'>
         <Form.Label>Username</Form.Label>
         <Form.Control
@@ -19,6 +23,8 @@ export const LoginForm = ({
           type='text'
           placeholder='username'
           required={true}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
       </Form.Group>
 
@@ -29,6 +35,8 @@ export const LoginForm = ({
           type='password'
           placeholder='password'
           required={true}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </Form.Group>
 
@@ -38,19 +46,11 @@ export const LoginForm = ({
         </Button>
       </Form.Group>
 
-      <Button onClick={navToRegister()} variant='link' size='lg'>
-        {`Register`}
+      <Button variant='link' size='lg'>
+        <RouterLink to='/users/register'>{`Register`}</RouterLink>
       </Button>
     </Form>
   )
-}
-
-interface Props {}
-
-const Login = (props: Props) => {
-  const handleLoginFormSubmit = () => {}
-
-  return <LoginForm handleLoginFormSubmit={handleLoginFormSubmit} />
 }
 
 export default Login

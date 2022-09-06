@@ -1,9 +1,13 @@
-import RouterLink from '../../components/common/RouterLink'
+import { Container } from 'react-bootstrap'
+import AuthTopNavBar from '../../components/AuthTopNavBar'
 
-interface Props {}
-
-const Root = (props: Props) => {
-  return <RouterLink to='/articles/'>{`Just a friendly joke~`}</RouterLink>
+const Root = () => {
+  return <Container>
+    <AuthTopNavBar />
+    <main>
+      {'the main page.'}
+    </main>
+  </Container>
 }
 
 export default Root

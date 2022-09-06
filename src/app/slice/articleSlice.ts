@@ -60,6 +60,7 @@ export const articleSlice = createSlice({
             const index = state.articles.findIndex(
                 (article) => article.id === action.payload.articleId
             )
+            console.log('index', index)
             state.articles.splice(index, 1)
         },
         //#endregion
@@ -77,10 +78,11 @@ export const {
     appendArticleForRedux,
     replaceArticleByIdForRedux,
     removeArticleByIdForRedux,
-
 } = articleSlice.actions
 
-export const selectArticleList = (state: RootState) => state.articleState.articles
-export const selectArticleById = (state: RootState, articleId: number) => state.articleState.articles.find((article) => article.id === articleId)
+export const selectArticleList = (state: RootState) =>
+    state.articleState.articles
+export const selectArticleById = (state: RootState, articleId: number) =>
+    state.articleState.articles.find((article) => article.id === articleId)
 
 export default articleSlice.reducer

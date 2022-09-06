@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import { RootState } from './app/store'
 import { useAppDispatch } from './app/hooks'
-import { fetchInitialState } from './app/slice/configSlice'
 
 import Root from './pages/Root'
 import { connect } from 'react-redux'
@@ -70,7 +69,3 @@ const AppUI = () => {
 }
 
 export default connect()(AppUI)
-
-// connect((state: RootState) => ({
-//   show: !state.configState.initialStateIsReady,
-// }))(AppUI)

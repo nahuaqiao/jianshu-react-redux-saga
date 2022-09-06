@@ -1,5 +1,4 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -9,18 +8,17 @@ import { postArticleForSaga } from '../../../app/slice/articleSlice'
 
 const ArticlePost = () => {
   const dispatch = useAppDispatch()
-
   const [title, setTitle] = React.useState(``)
   const [content, setContent] = React.useState(``)
 
   return (
     <Form
-      onSubmit={(e) => {
+      onSubmit={(e: any) => {
         e.preventDefault()
         const formData = new FormData()
         formData.append('title', title)
         formData.append('content', content)
-        console.log('formData', formData)
+        formData.append('cover', e.target.cover.files[0])
         dispatch(postArticleForSaga({ formData }))
       }}
     >
@@ -50,7 +48,11 @@ const ArticlePost = () => {
 
       <Form.Group className='mb-3'>
         <Form.Label>Article Cover</Form.Label>
-        <Form.Control name='cover' type='file' required={true} />
+        <Form.Control
+          name='cover'
+          type='file'
+          required={true}
+        />
       </Form.Group>
       <Form.Group className='d-grid gap-2'>
         <Button type='submit' variant='primary' size='lg'>

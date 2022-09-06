@@ -14,10 +14,11 @@ export const commentSlice = createSlice({
   name: 'commentState',
   initialState,
   reducers: {
-    postComment: (state: CommentState, action: PayloadAction<number>) => { },
+    postCommentForSaga: (state: CommentState, action: PayloadAction<{ articleId: number; content: string }>) => { },
+
   },
 })
 
-export const { postComment } = commentSlice.actions
+export const { postCommentForSaga } = commentSlice.actions
 
 export default commentSlice.reducer

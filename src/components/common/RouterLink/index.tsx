@@ -8,7 +8,7 @@ interface Props {
 
 const RouterLink = ({ to, children }: Props) => {
   return (
-    <Link to={to} style={{ textDecoration: 'none' }}>
+    <Link to={to} style={{ textDecoration: 'none', color: 'inherit' }}>
       {children}
     </Link>
   )

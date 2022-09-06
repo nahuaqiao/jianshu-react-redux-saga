@@ -22,7 +22,7 @@ export const ArticleListItem = ({ article }: { article: Article }) => {
         </div>
 
         <Badge bg='primary' pill>
-          {`${article.comments.length}`}
+          {`${article.comments?.length || 0}`}
         </Badge>
       </ListGroup.Item>
     </RouterLink>
